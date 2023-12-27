@@ -88,6 +88,11 @@ public class QuartzExecutorImpl implements QuartzExecutor {
         Date startDate = DateUtils.transformTimezoneDate(schedule.getStartTime(), timezoneId);
         Date endDate = DateUtils.transformTimezoneDate(schedule.getEndTime(), timezoneId);
 
+        Date now = new Date();
+        if (startDate.before(now)) {
+            startDate = now;
+        }
+
         lock.writeLock().lock();
         try {
 
